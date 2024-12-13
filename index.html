@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Chaotic Orbits</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background: #f0f0f0;
+			font-family: sans-serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+		header {
+			width: 100%;
+			background: #222;
+			color: #fff;
+			text-align: center;
+			padding: 20px 0;
+		}
+
+		header h1 {
+			margin: 0;
+			font-size: 2rem;
+		}
+
+		.loader {
+			position: relative;
+			width: 150px;
+			height: 150px;
+			margin-top: 50px;
+			transform-style: preserve-3d;
+			animation: spin 4s linear infinite;
+		}
+
+		/* Each ring is a circular orbit line */
+		.loader .ring {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform-style: preserve-3d;
+			transform: translate(-50%, -50%);
+			width: 120px;
+			height: 120px;
+			border-radius: 50%;
+			border: 4px solid #333; /* Thicker and darker for visibility */
+			opacity: 0.8;
+		}
+
+		/* You can create multiple rings, each rotated differently */
+		.loader .ring:nth-child(1) {
+			transform: translate(-50%, -50%) rotateX(var(--xturns)) rotateY(var(--yturns));
+		}
+		.loader .ring:nth-child(2) {
+			transform: translate(-50%, -50%) rotateX(calc(var(--xturns) * -1)) rotateY(var(--yturns));
+			border-color: #555; /* Slightly different shade for variety */
+		}
+		.loader .ring:nth-child(3) {
+			transform: translate(-50%, -50%) rotateX(var(--xturns)) rotateY(calc(var(--yturns) * -1));
+			border-color: #777;
+		}
+
+		@keyframes spin {
+			0% {
+				transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+			}
+			100% {
+				transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>Welcome to Hoover CS IT</h1>
+	</header>
+	<div class="loader">
+		<div class="ring"></div>
+		<div class="ring"></div>
+		<div class="ring"></div>
+	</div>
+
+	<script>
+		// Select the loader element
+		const loader = document.querySelector('.loader');
+
+		// Generate random rotation turns for x and y to create a random orbital plane.
+		const randomX = (Math.random() * 2 - 1); // random between -1 and 1
+		const randomY = (Math.random() * 2 - 1);
+
+		// Set the random variables on the loader element
+		loader.style.setProperty('--xturns', `${randomX}turn`);
+		loader.style.setProperty('--yturns', `${randomY}turn`);
+	</script>
+</body>
+</html>

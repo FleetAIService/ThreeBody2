@@ -1,0 +1,111 @@
+/* Define CSS Custom Properties */
+@property --size {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 0px;
+  }
+  
+  @property --distance {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 0px;
+  }
+  
+  @property --duration {
+	syntax: "<time>";
+	inherits: true;
+	initial-value: 0s;
+  }
+  
+  @property --xturns {
+	syntax: "<angle>";
+	inherits: true;
+	initial-value: 0turn;
+  }
+  
+  @property --yturns {
+	syntax: "<angle>";
+	inherits: true;
+	initial-value: 0turn;
+  }
+  
+  :root {
+	--size: 24px;
+	--distance: 100px;
+	--duration: 9s;
+  }
+  
+  html, body {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	background-image: radial-gradient(
+	  180% 120% at bottom center,
+	  lch(75 20 250),
+	  lch(30 16 240)
+	);
+	background-attachment: fixed;
+	position: relative;
+	perspective: 1000px;
+	perspective-origin: center;
+	overflow: hidden;
+	font-family: sans-serif;
+	color: #fff;
+  }
+  
+  h1 {
+	text-align: center;
+	margin-top: 20px;
+  }
+  
+  .orbit-container {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	transform:
+	  translate(-50%, -50%)
+	  rotateX(var(--xturns))
+	  rotateY(var(--yturns));
+	transform-style: preserve-3d;
+  }
+  
+  .orb {
+	position: absolute;
+	width: var(--size);
+	height: var(--size);
+	border-radius: 50%;
+	/* Subtle spherical shading with a radial gradient */
+	background: radial-gradient(circle at 30% 30%, #444 0%, #000 80%);
+	
+	/* Center the orb on the container's point */
+	top: calc(0px - var(--size)/2);
+	left: calc(0px - var(--size)/2);
+	transform-origin: 50% 50%;
+  }
+  
+  /* Place each orb at different initial angles and animate around the z-axis */
+  .loader-1 {
+	transform: translateX(var(--distance));
+	animation: orbit var(--duration) linear infinite;
+  }
+  
+  .loader-2 {
+	transform: rotateZ(120deg) translateX(var(--distance));
+	animation: orbit var(--duration) linear infinite;
+	animation-delay: calc(var(--duration) * -0.33);
+  }
+  
+  .loader-3 {
+	transform: rotateZ(240deg) translateX(var(--distance));
+	animation: orbit var(--duration) linear infinite;
+	animation-delay: calc(var(--duration) * -0.66);
+  }
+  
+  @keyframes orbit {
+	to {
+	  transform: rotateZ(360deg) translateX(var(--distance));
+	}
+  }
+  
